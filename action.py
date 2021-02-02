@@ -43,7 +43,7 @@ class Encrypt:
     # RSA Encrypt
     def rsaEncrypt(self, text, pubKey, modulus):
         text = text[::-1]
-        rs = int(text.encode('utf-8').hex(), 16)**int(pubKey, 16) % int(
+        rs = int(text.encode('utf-8').hex(), 16) ** int(pubKey, 16) % int(
             modulus, 16)
         return format(rs, 'x').zfill(256)
 
@@ -60,7 +60,7 @@ class CloudMusic:
         self.enc = Encrypt()
         self.headers = {
             "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
             "Referer": "http://music.163.com/",
             "Accept-Encoding": "gzip, deflate",
         }
@@ -76,13 +76,13 @@ class CloudMusic:
             }))
         headers = {
             "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
             "Referer":
-            "http://music.163.com/",
+                "http://music.163.com/",
             "Accept-Encoding":
-            "gzip, deflate",
+                "gzip, deflate",
             "Cookie":
-            "os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; channel=netease; __remember_me=true;"
+                "os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; channel=netease; __remember_me=true;"
         }
         res = self.session.post(url=loginUrl,
                                 data=self.loginData,
@@ -98,8 +98,8 @@ class CloudMusic:
             retext = "\"{nickname}\" 登录成功，当前等级：{level}\n\n".format(
                 nickname=self.nickname, level=self.getLevel()
                 ["level"]) + "距离升级还需听{beforeCount}首歌".format(
-                    beforeCount=self.getLevel()["nextPlayCount"] -
-                    self.getLevel()["nowPlayCount"])
+                beforeCount=self.getLevel()["nextPlayCount"] -
+                            self.getLevel()["nowPlayCount"])
             return retext
         else:
             return ("登录失败 " + str(ret['code']) + "：" + ret['message'])
@@ -167,24 +167,24 @@ class CloudMusic:
         # print("歌单大小：{musicCount}首\n".format(musicCount=len(musicId)))
         postData = json.dumps({
             'logs':
-            json.dumps(
-                list(
-                    map(
-                        lambda x: {
-                            'action': 'play',
-                            'json': {
-                                'download': 0,
-                                'end': 'playend',
-                                'id': x,
-                                'sourceId': '',
-                                'time': 240,
-                                'type': 'song',
-                                'wifi': 0
-                            }
-                        },
-                        random.sample(
-                            musicId,
-                            420 if len(musicId) > 420 else len(musicId)))))
+                json.dumps(
+                    list(
+                        map(
+                            lambda x: {
+                                'action': 'play',
+                                'json': {
+                                    'download': 0,
+                                    'end': 'playend',
+                                    'id': x,
+                                    'sourceId': '',
+                                    'time': 240,
+                                    'type': 'song',
+                                    'wifi': 0
+                                }
+                            },
+                            random.sample(
+                                musicId,
+                                420 if len(musicId) > 420 else len(musicId)))))
         })
         res = self.session.post(
             url="http://music.163.com/weapi/feedback/weblog",
